@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Physic Game</h1>
+<h3 id="wins">Wins:<span id ="winText"></span></h3>
+<h3 id="losses">Losses:<span id="lossText"></h3>
+<h3 id="guessesRemaining">Guesses left:<span id="guessesRemainingText"></h3>
+<h3 id="guessesMade">Your guesses so far:<span id="guessesMadeText"></h3>
+<div id="image-div"></div>
+
+<script type="text/javascript">
+    var alphabet=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+    console.log("hello");
+    var wins=0;
+    var losses=0;
+    var guessesRemaining=10;
+    var computerMadeChoice =false;
+    var computerChoice ="";
+    $("#winText").text(wins);
+    $("#lossText").text(losses);
+    $("#guessesRemainingText").text(guessesRemaining);
+
+
+    document.onkeypress=function(event) {
+        if (computerMadeChoice == false) {
+            computerChoice = alphabet[Math.floor(Math.random() * alphabet.length)];
+            console.log(computerChoice);
+            computerMadeChoice = true;
+        }
+
+
+        if (guessesRemaining > 0) {
+                var userGuess = event.key;
+                $("#guessesMadeText").append(userGuess + ",");
+                console.log(userGuess);
+                if (userGuess == computerChoice) {
+                    wins++;
+                    console.log("did match");
+                    guessesRemaining = 10;
+                    $("#winText").text(wins);
+                    computerMadeChoice = false;
+                    $("#guessesRemainingText").text(guessesRemaining);
+                    $("#guessesMadeText").text("");
+                }
+                else {
+                    console.log(computerChoice + "test");
+                    guessesRemaining--;
+                    $("#guessesRemainingText").text(guessesRemaining);
+                }
+
+            }
+            else {
+                losses++;
+                guessesRemaining = 10;
+                computerMadeChoice = false;
+                $("#winsText").text(wins);
+                $("#guessesMadeText").text("");
+                $("#lossText").text(losses);
+                $("#guessesRemainingText").text(guessesRemaining);
+                console.log("gameover");
+            }
+
+
+        }
+
+</script>
+</body>
+</html>
